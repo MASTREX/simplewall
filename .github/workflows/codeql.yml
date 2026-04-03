@@ -27,7 +27,7 @@ jobs:
     #   - https://gh.io/supported-runners-and-hardware-resources
     #   - https://gh.io/using-larger-runners (GitHub.com only)
     # Consider using larger runners or machines with greater resources for possible analysis time improvements.
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    runs-on: 'windows-latest'
     permissions:
       # required for all workflows
       security-events: write
@@ -72,6 +72,13 @@ jobs:
         # If you wish to specify custom queries, you can do so here or in a config file.
         # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
+
+    # Added by MASTREX
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    - name: Build Project
+      run: msbuild yourproject.vcxproj /p:Configuration=Release
+    
 
         # For more details on CodeQL's query packs, refer to: https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
         # queries: security-extended,security-and-quality
